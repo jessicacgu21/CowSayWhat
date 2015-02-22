@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <title>Socket.IO chat</title>
+    <script>
+      function jumpScroll() {
+        window.scrollBy(0, 1000); // horizontal and vertical scroll increments
+        //scrolldelay = setTimeout('pageScroll()',1); // scrolls every 100 milliseconds
+      }
+    </script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <div>
+    <form action="">
+      <input id="m" autocomplete="off" /><button type='submit'>Send</button>
+      <button id="rbutton">Recombobulate</button>
+    </form>
+    </div>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      var userId = 'u-' + (Math.random() * 10000) + '-' + (Math.random() * 10000);
+      socket.emit("new user", userId);
+      $('#rbutton').on('click', function() {
+        socket.emit('re message', userId);
+      });
+
+      $('form').on('submit', function(){
+        socket.emit('chat message', {body: $('#m').val(), user: userId});
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        jumpScroll();
+        $('#messages').append($('<div class="clear"></div>'));
+        $('#messages').append($('<li class="' + (msg.user === userId ? 'right' 
+          : '') 
+              + '">').html("<pre class='rainbow'>" + msg.body + '</pre>'));
+        jumpScroll();
+      });
+    </script>
+  </body>
+</html>
