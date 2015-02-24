@@ -5,6 +5,9 @@ You'll need to have cowsay installed and jmorin's cowfiles (found at https://git
 
 
 Credits to:
+
 Socket.io Chat Application Tutorial
+
 ghoti from http://stackoverflow.com/questions/13112671/how-to-horizontally-mirror-ascii-art
+
 http://rainbowcoding.com/how-to-create-rainbow-text-in-html-css-javascript/
